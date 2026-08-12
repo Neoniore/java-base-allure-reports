@@ -1,12 +1,16 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.commands.TakeScreenshot;
 import com.codeborne.selenide.selector.ByText;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.element;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class GithubPages {
 
@@ -14,6 +18,11 @@ public class GithubPages {
     public GithubPages openPage() {
         open("https://github.com/Neoniore?tab=repositories");
         return this;
+    }
+
+    @Attachment(value = "Скриншот страницы", type = "image/png")
+    public byte[] makeScreenshot() {
+        return screenshot(OutputType.BYTES);
     }
 
     @Step("Ищем репозиторий {repo} и выбираем его")
